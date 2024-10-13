@@ -15,7 +15,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const PostForm = ({ setSelectedFiles, selectedFiles }) => {
+interface Props{
+    setSelectedFiles: (val: File[]) => void
+    selectedFiles: File[]
+}
+
+const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
     const dispatch = useAppDispatch();
     const { user } = useAuth();
     const [isDateDisable, setIsDateDisable] = useState(true);
@@ -153,7 +158,7 @@ const PostForm = ({ setSelectedFiles, selectedFiles }) => {
                         size='small'
                         checked={currentItem.instance_dispatch}
                         onChange={handleInstantUploadChange}
-                        error={Boolean(errors.instance_dispatch)}
+                        // error={Boolean(errors.instance_dispatch)}
                     />
                 </div>
             </div>

@@ -95,7 +95,7 @@ const CustomerCreatePage = () => {
         setModalOpen(false); // Close the modal
     };
 
-    const validateQueryParams = async (queryParams) => {
+    const validateQueryParams = async (queryParams: any) => {
         setPending!(true);
         try {
             const res = await getRequest(`/v0/customers/create/callback?${queryParams}`);

@@ -7,7 +7,7 @@ import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 
 // Example function to fetch customer data (replace with your actual data fetching logic)
-const fetchCustomerData = async (id) => {
+const fetchCustomerData = async (id: any) => {
     const response = await fetch(`/api/customers/${id}`);
     if (!response.ok) {
         throw new Error('Failed to fetch customer data');

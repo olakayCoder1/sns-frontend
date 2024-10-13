@@ -20,6 +20,11 @@ type State = {
             ads: string;
             is_active:boolean;
             status: number;
+            created_at: string;
+            provider: string;
+            added_by: any;
+            youtube_client_secret: any;
+            youtube_client_id: any;
         };
         prev: number;
         next: number;
@@ -63,6 +68,11 @@ const initialState: State = {
             is_active:true,
             ads: '',
             status: 0,
+            created_at: '',
+            provider: '',
+            added_by: [],
+            youtube_client_secret: [],
+            youtube_client_id: [],
         },
         prev: 0,
         next: 0,

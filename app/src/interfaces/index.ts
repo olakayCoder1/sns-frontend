@@ -37,6 +37,11 @@ export interface ICustomer {
     manager: IName;
     created_at?: string;
     updated_at?: string;
+    provider?:any;
+    added_by?:any;
+    phone?:any;
+
+
 }
 
 export interface ICsvCustomer {

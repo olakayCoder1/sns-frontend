@@ -103,6 +103,8 @@ const NewPost = () => {
                 setSelectedFiles([]);
                 dispatch(clearCurrentItem());
                 dispatch(setError({}));
+
+                closeSubmitModal();
             } else {
                 dispatch(setError(res.data));
             }
@@ -128,11 +130,6 @@ const NewPost = () => {
             setCurrentPlatformIndex(newIndex);
             return newIndex;
         });
-    };
-
-    const handleModalSubmit = async () => {
-        await handleSubmit(new Event('submit')); // Pass a dummy event
-        closeSubmitModal();
     };
 
     const closeSubmitModal = () => {
@@ -292,10 +289,9 @@ const NewPost = () => {
                                     </div>
                                     <div className='flex gap-[8px] mt-[16px]'>
                                         <Button
-                                            type='button'
+                                            type="submit"
                                             variant="contained"
                                             color="primary"
-                                            onClick={handleModalSubmit}
                                             disabled={!isFormValid()} // Disable if form is invalid
                                         >
                                             Done

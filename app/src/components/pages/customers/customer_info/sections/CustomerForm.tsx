@@ -132,7 +132,7 @@ const CustomerForm = () => {
                             <TextField
                                 size='small'
                                 fullWidth
-                                value={currentItem?.youtube_project_id}
+                                value={currentItem?.provider}
                                 onChange={e => dispatch(setCurrentItemValue({ ads: e.target.value }))}
                                 disabled={true}
                                 error={errors.youtube_project_id ? true : false}
