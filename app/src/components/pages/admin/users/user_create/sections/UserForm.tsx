@@ -30,6 +30,7 @@ const UserForm = () => {
                         onChange={e => dispatch(setCurrentItemValue({ last_name: e.target.value }))}
                         error={errors.last_name ? true : false}
                         helperText={errors.last_name ? errors.last_name : ''}
+                        placeholder="姓"
                     />
                     <TextField
                         size='small'
@@ -38,13 +39,15 @@ const UserForm = () => {
                         onChange={e => dispatch(setCurrentItemValue({ first_name: e.target.value }))}
                         error={errors.first_name ? true : false}
                         helperText={errors.first_name ? errors.first_name : ''}
+                        placeholder="名"
+
                     />
                 </div>
             </div>
 
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                <FormLabel className='min-w-[134px] mt-[10px]'>氏名</FormLabel>
+                <FormLabel className='min-w-[134px] mt-[10px]'>氏名（ふりがな）</FormLabel>
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
@@ -52,7 +55,9 @@ const UserForm = () => {
                         value={currentItem.last_name_furi}
                         onChange={e => dispatch(setCurrentItemValue({ last_name_furi: e.target.value }))}
                         error={errors.last_name_furi ? true : false}
+                        placeholder="せい"
                         helperText={errors.last_name_furi ? errors.last_name_furi : ''}
+                        
                     />
                     <TextField
                         size='small'
@@ -61,6 +66,7 @@ const UserForm = () => {
                         onChange={e => dispatch(setCurrentItemValue({ first_name_furi: e.target.value }))}
                         error={errors.first_name_furi ? true : false}
                         helperText={errors.first_name_furi ? errors.first_name_furi : ''}
+                        placeholder="めい"
                     />
                 </div>
             </div>
@@ -76,6 +82,8 @@ const UserForm = () => {
                         onChange={e => dispatch(setCurrentItemValue({ email: e.target.value }))}
                         error={errors.email ? true : false}
                         helperText={errors.email ? errors.email : ''}
+                        placeholder="email@socialfeed.jp"
+
                     />
                 </div>
             </div>
@@ -91,6 +99,8 @@ const UserForm = () => {
                         onChange={e => dispatch(setCurrentItemValue({ phone: e.target.value }))}
                         error={errors.phone ? true : false}
                         helperText={errors.phone ? errors.phone : ''}
+                        placeholder="08000000000"
+
                     />
                 </div>
             </div>
@@ -103,6 +113,7 @@ const UserForm = () => {
                         fullWidth
                         size='small'
                         value={currentItem.role}
+                        defaultValue={1}
                         onChange={e => dispatch(setCurrentItemValue({ role: e.target.value }))}
                         error={errors.role ? true : false}
                     >
