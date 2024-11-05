@@ -52,6 +52,7 @@ const NewPost = () => {
     };
 
     const handleSubmit = async (e: FormEvent) => {
+        console.log("adfadsfasdfasdfasdf==========");
         e.preventDefault();
         const formData = new FormData();
         formData.append('title', form.title);
@@ -75,12 +76,12 @@ const NewPost = () => {
 
         for (const file of selectedFiles) {
             if (!allowedFileTypes.includes(file.type)) {
-                alert(`File type not allowed: ${file.name}`);
+                alert(`許可されていないファイル形式: ${file.name}`);
                 return;
             }
             const fileSizeMB = file.size / (1024 * 1024);
             if (fileSizeMB > maxFileSizeMB) {
-                alert(`File size exceeds 100 MB: ${file.name}`);
+                alert(`ファイルサイズが100 MBを超えています: ${file.name}`);
                 return;
             }
         }
@@ -142,34 +143,34 @@ const NewPost = () => {
                 <MainLayout>
                     <TitleBar>新規投稿</TitleBar>
                     <MainPannel>
-                        <form className='w-full max-w-[600px] flex flex-col gap-[10px]' onSubmit={handleSubmit}>
+                        <form className='w-full max-w-[600px] flex flex-col gap-[10px]' onSubmit={(e) => handleSubmit(e)}>
                             <PostForm setSelectedFiles={setSelectedFiles} selectedFiles={selectedFiles} />
                             <div className='mt-[16px]'>
                                 <Button
-                                        type='button'
-                                        variant='contained'
-                                        color='secondary'
-                                        onClick={openSubmitModal}
-                                        disabled={
-                                            // Check if the user has no connected accounts
-                                            (user?.user_info?.is_youtube === false &&
+                                    type='button'
+                                    variant='contained'
+                                    color='secondary'
+                                    onClick={openSubmitModal}
+                                    disabled={
+                                        // Check if the user has no connected accounts
+                                        (user?.user_info?.is_youtube === false &&
                                             user?.user_info?.is_instagram === false &&
                                             user?.user_info?.is_twitter === false &&
                                             user?.user_info?.is_tiktok === false) ||
 
-                                            // Check if the form is missing a title or description
-                                            !form.title || !form.description ||
+                                        // Check if the form is missing a title or description
+                                        !form.title || !form.description ||
 
-                                            // Check if no channels are selected
-                                            !(form.is_instagram || form.is_tiktok || form.is_youtube || form.is_twitter)
-                                        }
-                                    >
-                                        {user?.user_info?.is_youtube === false &&
+                                        // Check if no channels are selected
+                                        !(form.is_instagram || form.is_tiktok || form.is_youtube || form.is_twitter)
+                                    }
+                                >
+                                    {user?.user_info?.is_youtube === false &&
                                         user?.user_info?.is_instagram === false &&
                                         user?.user_info?.is_twitter === false &&
                                         user?.user_info?.is_tiktok === false
-                                            ? 'No connected accounts.'
-                                            : (currentStatus ? '送信中...' : '確認する')}
+                                        ? 'No connected accounts.'
+                                        : (currentStatus ? '送信中...' : '確認する')}
                                 </Button>
 
                             </div>
@@ -195,82 +196,82 @@ const NewPost = () => {
                                         プラットフォーム: {getSelectedPlatforms()[currentPlatformIndex]}
                                     </Typography>
                                     <div className='w-full max-w-[600px] flex flex-col gap-[10px]'>
-                                    {getSelectedPlatforms()[currentPlatformIndex] === 'YouTube' ? (
-                                        <>
-                                        <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                                            <TextField
-                                                label="Title"
-                                                fullWidth
-                                                value={form.youtube_title}
-                                                onChange={e => dispatch(setCurrentItemValue({ youtube_title: e.target.value }))}
-                                                className='mt-[16px]'
-                                                error={Boolean(errors.youtube_title)}
-                                                helperText={errors?.youtube_title || ''}
-                                            />
-                                        </div>
+                                        {getSelectedPlatforms()[currentPlatformIndex] === 'YouTube' ? (
+                                            <>
+                                                <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                                                    <TextField
+                                                        label="Title"
+                                                        fullWidth
+                                                        value={form.youtube_title}
+                                                        onChange={e => dispatch(setCurrentItemValue({ youtube_title: e.target.value }))}
+                                                        className='mt-[16px]'
+                                                        error={Boolean(errors.youtube_title)}
+                                                        helperText={errors?.youtube_title || ''}
+                                                    />
+                                                </div>
 
-                                        <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px] mt-4'>
-                                            <TextField
-                                                label="Description"
-                                                multiline
-                                                fullWidth
-                                                rows={4}
-                                                value={form.youtube_description}
-                                                onChange={e => dispatch(setCurrentItemValue({ youtube_description: e.target.value }))}
-                                                className='mt-[16px]'
-                                                error={Boolean(errors.youtube_description)}
-                                                helperText={errors?.youtube_description || ''}
-                                            />
-                                        </div>
-                                        </>
-                                    ): (
-                                        getSelectedPlatforms()[currentPlatformIndex] === 'TikTok' ? (
-                                            <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                                                <TextField
-                                                    label="Description"
-                                                    multiline
-                                                    fullWidth
-                                                    rows={4}
-                                                    value={form.tiktok_description}
-                                                    onChange={e => dispatch(setCurrentItemValue({ tiktok_description: e.target.value }))}
-                                                    className='mt-[16px]'
-                                                    error={Boolean(errors.tiktok_description)}
-                                                    helperText={errors?.tiktok_description || ''}
-                                                />
-                                            </div>
+                                                <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px] mt-4'>
+                                                    <TextField
+                                                        label="Description"
+                                                        multiline
+                                                        fullWidth
+                                                        rows={4}
+                                                        value={form.youtube_description}
+                                                        onChange={e => dispatch(setCurrentItemValue({ youtube_description: e.target.value }))}
+                                                        className='mt-[16px]'
+                                                        error={Boolean(errors.youtube_description)}
+                                                        helperText={errors?.youtube_description || ''}
+                                                    />
+                                                </div>
+                                            </>
                                         ) : (
-                                            getSelectedPlatforms()[currentPlatformIndex] === 'Twitter' ? (
+                                            getSelectedPlatforms()[currentPlatformIndex] === 'TikTok' ? (
                                                 <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                                                     <TextField
                                                         label="Description"
                                                         multiline
                                                         fullWidth
                                                         rows={4}
-                                                        value={form.twitter_description}
-                                                        onChange={e => dispatch(setCurrentItemValue({ twitter_description: e.target.value }))}
+                                                        value={form.tiktok_description}
+                                                        onChange={e => dispatch(setCurrentItemValue({ tiktok_description: e.target.value }))}
                                                         className='mt-[16px]'
-                                                        error={Boolean(errors.twitter_description)}
-                                                        helperText={errors?.twitter_description || ''}
+                                                        error={Boolean(errors.tiktok_description)}
+                                                        helperText={errors?.tiktok_description || ''}
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                                                    <TextField
-                                                        label="Description"
-                                                        multiline
-                                                        fullWidth
-                                                        rows={4}
-                                                        value={form.instagram_description}
-                                                        onChange={e => dispatch(setCurrentItemValue({ instagram_description: e.target.value }))}
-                                                        className='mt-[16px]'
-                                                        error={Boolean(errors.instagram_description)}
-                                                        helperText={errors?.instagram_description || ''}
-                                                    />
-                                                </div>
+                                                getSelectedPlatforms()[currentPlatformIndex] === 'Twitter' ? (
+                                                    <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                                                        <TextField
+                                                            label="Description"
+                                                            multiline
+                                                            fullWidth
+                                                            rows={4}
+                                                            value={form.twitter_description}
+                                                            onChange={e => dispatch(setCurrentItemValue({ twitter_description: e.target.value }))}
+                                                            className='mt-[16px]'
+                                                            error={Boolean(errors.twitter_description)}
+                                                            helperText={errors?.twitter_description || ''}
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                                                        <TextField
+                                                            label="Description"
+                                                            multiline
+                                                            fullWidth
+                                                            rows={4}
+                                                            value={form.instagram_description}
+                                                            onChange={e => dispatch(setCurrentItemValue({ instagram_description: e.target.value }))}
+                                                            className='mt-[16px]'
+                                                            error={Boolean(errors.instagram_description)}
+                                                            helperText={errors?.instagram_description || ''}
+                                                        />
+                                                    </div>
+                                                )
                                             )
-                                        )
-                                    )}
-                                        
+                                        )}
+
                                     </div>
 
                                     <div className='flex gap-[8px] mt-[16px]'>
@@ -289,9 +290,10 @@ const NewPost = () => {
                                     </div>
                                     <div className='flex gap-[8px] mt-[16px]'>
                                         <Button
-                                            type="submit"
+                                            type="button" // Change to "button" so it doesn't act as form submit
                                             variant="contained"
                                             color="primary"
+                                            onClick={handleSubmit} // Call handleSubmit on click
                                             disabled={!isFormValid()} // Disable if form is invalid
                                         >
                                             送信する
