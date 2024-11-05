@@ -189,10 +189,10 @@ const NewPost = () => {
                                         <CloseIcon />
                                     </IconButton>
                                     <Typography variant="h6" component="h2">
-                                        Review & Edit Content
+                                        コンテンツの確認と編集
                                     </Typography>
                                     <Typography variant="h6" component="h3" className='mt-8'>
-                                        Platform: {getSelectedPlatforms()[currentPlatformIndex]}
+                                        プラットフォーム: {getSelectedPlatforms()[currentPlatformIndex]}
                                     </Typography>
                                     <div className='w-full max-w-[600px] flex flex-col gap-[10px]'>
                                     {getSelectedPlatforms()[currentPlatformIndex] === 'YouTube' ? (
@@ -294,13 +294,13 @@ const NewPost = () => {
                                             color="primary"
                                             disabled={!isFormValid()} // Disable if form is invalid
                                         >
-                                            Done
+                                            送信する
                                         </Button>
                                         <Button
                                             variant="outlined"
                                             onClick={closeSubmitModal}
                                         >
-                                            Close
+                                            閉じる
                                         </Button>
                                     </div>
                                 </div>
