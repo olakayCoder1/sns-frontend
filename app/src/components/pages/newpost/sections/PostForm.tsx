@@ -15,7 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-interface Props{
+interface Props {
     setSelectedFiles: (val: File[]) => void
     selectedFiles: File[]
 }
@@ -27,11 +27,11 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
     const currentItem = useAppSelector(state => state.new_post.form);
     const errors = useAppSelector(state => state.new_post.errors || {});
     const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
-    
+
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
-    
+
     const isDescriptionAndTitleValid = currentItem.description && currentItem.title.trim() !== '';
 
     const VisuallyHiddenInput = styled('input')({
@@ -51,9 +51,9 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
         if (files && files.length > 0) {
             const fileList = Array.from(files);
             setSelectedFiles(fileList);
-            
+
             const newPreviews: string[] = [];
-            
+
             fileList.forEach(file => {
                 if (file.type.startsWith('video/')) {
                     const url = URL.createObjectURL(file);
@@ -104,7 +104,7 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
         return platforms;
     };
 
-    const updateAllDescription = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const updateAllDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setCurrentItemValue({ description: e.target.value }))
         dispatch(setCurrentItemValue({ youtube_description: e.target.value }))
         dispatch(setCurrentItemValue({ tiktok_description: e.target.value }))
@@ -112,12 +112,12 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
         dispatch(setCurrentItemValue({ twitter_description: e.target.value }))
     }
 
-    const updateAllTitle = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const updateAllTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setCurrentItemValue({ title: e.target.value }))
         dispatch(setCurrentItemValue({ youtube_title: e.target.value }))
     }
 
-    
+
 
 
 
@@ -158,7 +158,7 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
                         size='small'
                         checked={currentItem.instance_dispatch}
                         onChange={handleInstantUploadChange}
-                        // error={Boolean(errors.instance_dispatch)}
+                    // error={Boolean(errors.instance_dispatch)}
                     />
                 </div>
             </div>
@@ -262,7 +262,7 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
                         tabIndex={-1}
                         startIcon={<CloudUploadIcon />}
                     >
-                        {selectedFiles.length > 0 ?  `${selectedFiles.length} 件のファイルが選択されました` :   'ファイルをアップロード'}
+                        {selectedFiles.length > 0 ? `${selectedFiles.length} 件のファイルが選択されました` : 'ファイルをアップロード'}
                         <VisuallyHiddenInput
                             type="file"
                             onChange={handleFileChange}
@@ -276,13 +276,15 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
                         variant="contained"
                         onClick={() => openPreviewModal(0)}
                         disabled={!selectedFiles.length}
-                        // disabled={!selectedFiles.length || !getSelectedPlatforms().length}
+                    // disabled={!selectedFiles.length || !getSelectedPlatforms().length}
                     >
                         動画をプレビュー
                     </Button>
                 </div>
             </div>
-            
+
+            <p className="text-black text-opacity-70">アップロードの最大容量は500MBです。</p>
+
 
             {/* Modal for Video Previews */}
             <Modal
@@ -322,9 +324,9 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
                 </div>
             </Modal>
 
-            
 
-            
+
+
         </>
     );
 };

@@ -151,7 +151,7 @@ export const postRequest = async (path: string, payload: any): Promise<IResponse
 
 export const postFormdata = async (path: string, formData: FormData): Promise<IResponse> => {
     dispatch(loading(true));
-    let response = await apiInstance.post<AxiosResponse, IResponse>(path, formData, {
+    let response = await apiInstance.postForm<AxiosResponse, IResponse>(path, formData, {
         headers: {
             'content-type': 'multipart/form-data'
         }
@@ -160,7 +160,7 @@ export const postFormdata = async (path: string, formData: FormData): Promise<IR
         if (hasCookie(COOKIE_NAME)) {
             response = await token_refresh();
             if (response.status == 200) {
-                response = await apiInstance.post<AxiosResponse, IResponse>(path, formData, {
+                response = await apiInstance.postForm<AxiosResponse, IResponse>(path, formData, {
                     headers: {
                         'content-type': 'multipart/form-data'
                     }

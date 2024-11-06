@@ -51,9 +51,8 @@ const NewPost = () => {
         setModalOpen(true);
     };
 
-    const handleSubmit = async (e: FormEvent) => {
-        console.log("adfadsfasdfasdfasdf==========");
-        e.preventDefault();
+    const handleSubmit = async () => {
+
         const formData = new FormData();
         formData.append('title', form.title);
         formData.append('description', form.description);
@@ -143,7 +142,7 @@ const NewPost = () => {
                 <MainLayout>
                     <TitleBar>新規投稿</TitleBar>
                     <MainPannel>
-                        <form className='w-full max-w-[600px] flex flex-col gap-[10px]' onSubmit={(e) => handleSubmit(e)}>
+                        <form className='w-full max-w-[600px] flex flex-col gap-[10px]'>
                             <PostForm setSelectedFiles={setSelectedFiles} selectedFiles={selectedFiles} />
                             <div className='mt-[16px]'>
                                 <Button
