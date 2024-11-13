@@ -66,6 +66,8 @@ const NewPost = () => {
         formData.append('twitter_description', String(form.twitter_description));
         formData.append('youtube_title', String(form.youtube_title));
         formData.append('tiktok_description', String(form.tiktok_description));
+        formData.append('tags', String(form.tags));
+        formData.append('restriction', String(form.restriction));
 
         if (form.date) formData.append('date', form.date);
         if (form.time) formData.append('time', form.time);

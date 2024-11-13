@@ -27,6 +27,8 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
     const currentItem = useAppSelector(state => state.new_post.form);
     const errors = useAppSelector(state => state.new_post.errors || {});
     const [videoPreviews, setVideoPreviews] = useState<string[]>([]);
+    const [tagsInput, setTagsInput] = useState('');  // State to store user input (comma-separated)
+    const [tags, setTags] = useState<string[]>([]);
 
     const [previewModalOpen, setPreviewModalOpen] = useState(false);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -116,6 +118,37 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
         dispatch(setCurrentItemValue({ title: e.target.value }))
         dispatch(setCurrentItemValue({ youtube_title: e.target.value }))
     }
+
+
+    
+    const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTagsInput(e.target.value);  // Set the input string of tags
+    };
+
+    const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && tagsInput.trim() !== '') {
+            // When Enter is pressed, split the input and update the tags
+            const newTags = tagsInput
+                .split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag.length > 0);  // Avoid empty tags
+            
+            setTags(prevTags => [...prevTags, ...newTags]);
+            setTagsInput('');  // Clear input field
+
+            // Optionally update the state for the tags in your form (e.g., YouTube tags)
+            dispatch(setCurrentItemValue({ tags: [...tags, ...newTags].join(', ') }));
+        }
+    };
+
+    const handleTagRemove = (tag: string) => {
+        const updatedTags = tags.filter(t => t !== tag);
+        setTags(updatedTags);
+        dispatch(setCurrentItemValue({ tags: updatedTags.join(', ') }));
+    };
+
+    
+
 
 
 
@@ -251,6 +284,53 @@ const PostForm = ({ setSelectedFiles, selectedFiles }: Props) => {
                     />
                 </div>
             </div>
+
+            {/* Tags Input for YouTube */}
+            {currentItem.is_youtube && (
+                <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                    <FormLabel className='min-w-[134px] mt-[10px]'>アカウントを選択</FormLabel>
+                    <div className=' w-full'>
+                    <TextField
+                        fullWidth
+                        size="small"
+                        value={tagsInput}  // Show the current input value
+                        onChange={handleTagInputChange}
+                        onKeyDown={handleTagInputKeyDown}  // Handle "Enter" key press
+                        placeholder="タグを入力... (e.g., sport, game, bet)"
+                    />
+                    <div className="tags-container mt-2 flex flex-wrap gap-2">
+                        {tags.map((tag, index) => (
+                            <Chip
+                                key={index}
+                                label={tag}
+                                onDelete={() => handleTagRemove(tag)}
+                                color="primary"
+                                variant="outlined"
+                            />
+                        ))}
+                    </div>
+                    </div>
+                   
+                </div>
+            )}
+
+            {/* For Children Checkbox */}
+            {currentItem.is_youtube && (
+                <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                    <FormLabel className='min-w-[134px] mt-[10px]'>このビデオは子供向けですか？</FormLabel>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                size='small'
+                                checked={currentItem.restriction}
+                                onChange={e => dispatch(setCurrentItemValue({ restriction: e.target.checked }))}
+                            />
+                        }
+                        label="はい"
+                    />
+                </div>
+            )}
+
 
             {/* File Upload */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px] w-[max-content]'>

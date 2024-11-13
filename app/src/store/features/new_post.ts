@@ -8,6 +8,8 @@ type PostFormData = {
     tiktok_description: string;
     twitter_description: string;
     instagram_description: string;
+    tags: string;
+    restriction: boolean;
     is_youtube: boolean;
     is_tiktok: boolean;
     is_twitter: boolean;
@@ -32,6 +34,8 @@ const initialState: State = {
         tiktok_description: '',
         twitter_description: '',
         instagram_description: '',
+        tags: '',
+        restriction: false,
         is_youtube: false,
         is_tiktok: false,
         is_twitter: false,
