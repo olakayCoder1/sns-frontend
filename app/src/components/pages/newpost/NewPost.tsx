@@ -107,6 +107,7 @@ const NewPost = () => {
                 dispatch(setError({}));
 
                 closeSubmitModal();
+                setCurrentStatus(false);
             } else {
                 dispatch(setError(res.data));
             }
